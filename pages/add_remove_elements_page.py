@@ -6,6 +6,30 @@ class AddRemoveElementsPage(BasePage):
     def add_element(self):
         self.click_element(*AddRemoveElementsLocators.BUTTON_ADD_ELEMENT)
 
+    def add_100_elements(self):
+        count = 100
+        expected_result = 100
+        while count > 0:
+            self.add_element()
+            count = count - 1
+
+        actual_result = self.count_elements(*AddRemoveElementsLocators.ALL_ADDED_ELEMENTS)
+
+        assert actual_result == expected_result, f"{actual_result} elements were added. " \
+                                                 f"Expected to be {expected_result}"
+
+    def delete_100_elements(self):
+        count = 100
+        expected_result = 0
+        while count > 0:
+            self.delete_first_element()
+            count = count - 1
+
+        actual_result = self.count_elements(*AddRemoveElementsLocators.ALL_ADDED_ELEMENTS)
+
+        assert actual_result == expected_result, f"{actual_result} elements were added. " \
+                                                 f"Expected to be {expected_result}"
+
     def delete_first_element(self):
         self.click_element(*AddRemoveElementsLocators.FIRST_ADDED_ELEMENT)
 
